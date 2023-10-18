@@ -2,6 +2,7 @@ plugins {
     id 'idea'
     id 'java'
     id('io.ebean') version '13.11.0'
+    id('com.github.ben-manes.versions') version '0.48.0'
 }
 
 group = 'cl.ucn.disc.as'
@@ -57,6 +58,15 @@ dependencies {
     // logger
     implementation 'ch.qos.logback:logback-core:1.4.11'
     implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    // commons-long3
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
+
+    //data faker
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    implementation 'javax.validation:validation-api:2.0.1.Final'
 
 }
 

@@ -1,4 +1,4 @@
-package cl.ucn.disc.as.model.exceptions;
+package cl.ucn.disc.as.exceptions;
 
 import javax.persistence.PersistenceException;
 
