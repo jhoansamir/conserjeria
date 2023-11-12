@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -49,18 +47,5 @@ public class Contrato extends BaseModel {
     @Getter
     @ManyToOne
     private Departamento departamento;
-    public static class ContratoBuilder {
-        /**
-         *
-         * @return the Contrato
-         */
-        public Contrato build() {
-            //inicializa si pagos es nulo
-            if (this.pagos == null) {
-                this.pagos = new ArrayList<>();
-            }
-            return new Contrato(fechaPago, pagos, persona, departamento);
 
-        }
-    }
 }

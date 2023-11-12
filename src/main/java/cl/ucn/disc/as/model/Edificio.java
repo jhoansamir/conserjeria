@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
