@@ -3,8 +3,10 @@ package cl.ucn.disc.as;
 
 import cl.ucn.disc.as.dao.PersonaFinder;
 import cl.ucn.disc.as.model.Contrato;
+import cl.ucn.disc.as.model.Departamento;
 import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Persona;
+
 import cl.ucn.disc.as.services.Sistema;
 import cl.ucn.disc.as.services.SistemaImpl;
 import io.ebean.DB;
@@ -34,8 +36,8 @@ public class Main {
 
         //get the database
         Database db = DB.getDefault();
-
         Sistema sistema = new SistemaImpl(db);
+
 
         Edificio edificio = Edificio.builder()
                 .nombre("Y1")
@@ -45,6 +47,20 @@ public class Main {
 
         edificio = sistema.add(edificio);
         log.debug("Edificio afer db: {}", edificio);
+
+        Departamento departamento1 = Departamento.builder()
+                .departamento(1)
+                .piso("1")
+                .build();
+        sistema.addDepartamento(edificio, departamento1);
+
+        Departamento departamento2= Departamento.builder()
+                .departamento(2)
+                .piso("1")
+                .build();
+        sistema.addDepartamento(edificio, departamento2);
+
+        log.debug("Edificio afer db: {}", edificio.getDepartamentos());
 
         Persona persona = Persona.builder()
                 .rut("22432926-1")

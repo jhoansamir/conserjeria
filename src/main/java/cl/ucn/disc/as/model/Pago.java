@@ -6,23 +6,23 @@ import lombok.Builder;
 import lombok.ToString;
 import lombok.Getter;
 
-import javax.persistence.Entity;
+import java.time.Instant;
+import java.util.Date;
 
+import javax.persistence.Entity;
+@Getter
 @ToString
 @AllArgsConstructor
 @Builder
 @Entity
-public class Departamento extends BaseModel  {
+public class Pago {
     /**
-     * The Apartment Number
+     *  fecha de pago
      */
-    @NotNull
-    private Integer departamento;
+    private Date fechaPago;
 
     /**
-     * The Piso
+     *  monto de pago
      */
-    @NotNull
-    private String piso;
-
+    private Integer montoPago;
 }
