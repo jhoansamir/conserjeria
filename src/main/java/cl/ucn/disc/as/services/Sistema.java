@@ -5,19 +5,15 @@ import cl.ucn.disc.as.model.Departamento;
 import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Persona;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
+import java.time.Instant;
 import java.util.Date;
-
-import javax.persistence.Entity;
+import java.util.List;
 
 /**
  * System Operations
  *
- * @autor Arquitectura de sistema
+ * @autor Jhoan Mamani Carrillo
  */
 public interface Sistema {
     /**
@@ -42,6 +38,8 @@ public interface Sistema {
      */
     Departamento addDepartamento(Edificio edificio,Departamento departamento);
 
+    Departamento addDepartamento(Long idEdificio, Departamento departamento);
+
     /**
      * Realizar un contrato
      *
@@ -49,5 +47,30 @@ public interface Sistema {
      * @param departamento a agregar
      * @param fechaPago a agregar
      */
-    Contrato realizarContrato(Persona duenio, Departamento departamento, Date fechaPago);
+    Contrato realizarContrato(Persona duenio, Departamento departamento, Instant fechaPago);
+
+    Contrato realizarContrato(Long idPersona, Long idDepartamento, Instant fechaPago);
+
+    /**
+     * Obtener listado de personas del sistema.
+     */
+    List<Persona> getPersonas();
+
+    /**
+     * Obtener listado de contratos del sistema.
+     */
+    List<Contrato> getContratos();
+
+    /**
+     * Obtener persona dado su RUT.
+     *
+     * @param rut de la persona a consultar.
+     * @return
+     */
+    Optional<Persona> getPersona(String rut);
+
+    /**
+     * Pobla la base de datos.
+     */
+    public void populate();
 }

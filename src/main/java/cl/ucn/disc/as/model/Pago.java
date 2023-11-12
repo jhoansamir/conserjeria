@@ -7,22 +7,23 @@ import lombok.ToString;
 import lombok.Getter;
 
 import java.time.Instant;
-import java.util.Date;
 
 import javax.persistence.Entity;
 @Getter
-@ToString
+@ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
 @Entity
-public class Pago {
+public class Pago extends BaseModel {
     /**
      *  fecha de pago
      */
-    private Date fechaPago;
+    @NotNull
+    private Instant fechaPago;
 
     /**
      *  monto de pago
      */
+    @NotNull
     private Integer montoPago;
 }

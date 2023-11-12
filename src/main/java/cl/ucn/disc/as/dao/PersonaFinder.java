@@ -9,6 +9,7 @@ import cl.ucn.disc.as.model.query.QPersona;
 import io.ebean.Finder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,5 +35,14 @@ public class PersonaFinder extends Finder<Long, Persona> {
      */
     public Optional<Persona> byRut(@NotNull String rut) {
         return new QPersona().rut.eq(rut).findOneOrEmpty();
+    }
+
+    /**
+     * Find all the Persona.
+     *
+     * @return the list of Persona.
+     */
+    public List<Persona> findAll() {
+        return new QPersona().findList();
     }
 }

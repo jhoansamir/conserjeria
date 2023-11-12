@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
@@ -14,10 +14,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
-@ToString
+
 @AllArgsConstructor
+@ToString(callSuper = true)
 @Builder
 @Entity
+@Getter
 public class Contrato extends BaseModel {
 
     /**
@@ -25,24 +27,27 @@ public class Contrato extends BaseModel {
      */
     @NotNull
     @Getter
-    private Date fechaPago;
+    private Instant fechaPago;
 
     /**
      *The List of Pagos
      */
     @Getter
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Pago> pagos;
 
     /**
      *The Persona
      */
     @Getter
+    @ManyToOne
     private Persona persona;
 
     /**
      *The Departamento
      */
     @Getter
+    @ManyToOne
     private Departamento departamento;
     public static class ContratoBuilder {
         /**
@@ -57,12 +62,5 @@ public class Contrato extends BaseModel {
             return new Contrato(fechaPago, pagos, persona, departamento);
 
         }
-    }
-
-
-    public long diferenciaDeDias(Date fecha) {
-        Instant ahora = Instant.now();
-        Duration diferencia = Duration.between(ahora, fecha.toInstant());
-        return diferencia.toMinutes();
     }
 }

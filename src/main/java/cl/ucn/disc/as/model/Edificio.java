@@ -8,10 +8,10 @@ import lombok.ToString;
 
 import java.util.List;
 import java.util.ArrayList;
-import cl.ucn.disc.as.model.Departamento;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  * Class Edificio
@@ -19,6 +19,7 @@ import javax.persistence.Entity;
  * @autor Arquitectura de sistemas
  */
 
+@Getter
 @ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
@@ -40,8 +41,9 @@ public class Edificio extends BaseModel {
     private String direccion;
 
     /**
-     * The Departamentos
+     * The Departamentos of the Edificio
      */
+    @OneToMany(cascade = CascadeType.ALL)
     @Getter
     private List<Departamento> departamentos;
 
@@ -49,10 +51,6 @@ public class Edificio extends BaseModel {
      * Agrerga un departamento a la lista de departamentos
      */
     public void addDepartamento(Departamento departamento) {
-        //initialize the lista si es nula
-        if (this.departamentos == null) {
-            this.departamentos = new ArrayList<>();
-        }
-        this.departamentos.add(departamento);
+        departamentos.add(departamento);
     }
 }
