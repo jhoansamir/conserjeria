@@ -1,32 +1,26 @@
 package cl.ucn.disc.as;
 
-
-import cl.ucn.disc.as.dao.PersonaFinder;
-import cl.ucn.disc.as.model.Contrato;
-import cl.ucn.disc.as.model.Departamento;
-import cl.ucn.disc.as.model.Edificio;
-import cl.ucn.disc.as.model.Persona;
-
-import cl.ucn.disc.as.services.Sistema;
-import cl.ucn.disc.as.services.SistemaImpl;
-import io.ebean.DB;
-import io.ebean.Database;
 import lombok.extern.slf4j.Slf4j;
 import io.javalin.Javalin;
 
-import java.sql.DatabaseMetaData;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-import java.time.Instant;
-import cl.ucn.disc.as.ui.ApiRestServer;
-import cl.ucn.disc.as.ui.RoutesConfigurator;
-import cl.ucn.disc.as.ui.WebController;
 
+import cl.ucn.disc.as.ui.ApiRestServer;
+import cl.ucn.disc.as.ui.WebController;
+import cl.ucn.disc.as.grpc.PersonaGrpcServiceImpl;
+
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import java.io.IOException;
 /**
  *The Main
  *@author Jhoan Mamani Carrillo
+ */
+
+/**
+ *
+ @@ -24,15 +19,24 @@ public final class Main {
+  * Entrypoint
+  * @param args to use.
   */
 @Slf4j
 public class Main {
@@ -35,12 +29,21 @@ public class Main {
      *
      * @param args to use.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException, InterruptedException  {
 
-        log.debug("Starting Main..");
+        log.debug("Starting Main ..");
+
+        log.debug("Starting the REST API server ..");
         Javalin app = ApiRestServer.start(7070, new WebController());
 
+        log.debug("Starting the gRPC server ..");
+        Server server = ServerBuilder
+                .forPort(50123)
+                .addService(new PersonaGrpcServiceImpl())
+                .build();
+        server.start();
+        Runtime.getRuntime().addShutdownHook(new Thread(server::shutdown));
+        server.awaitTermination();
         log.debug("Done.");
-
     }
 }
