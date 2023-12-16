@@ -5,6 +5,7 @@ buildscript {
         protobufVersion = '3.21.12'
         protobufPluginVersion = '0.9.4'
         versionPluginVersion = '0.50.0'
+        mariadbVersion = '3.3.1'
     }
 }
 plugins {
@@ -68,10 +69,12 @@ dependencies {
     implementation 'io.ebean:ebean:13.11.0'
     implementation 'io.ebean:ebean-ddl-generator:13.21.0'
     annotationProcessor 'io.ebean:querybean-generator:13.11.0'
+    implementation "io.ebean:ebean-mariadb:${ebeanVersion}"
 
     // database
     implementation 'org.xerial:sqlite-jdbc:3.43.0.0'
-    // implementation 'com.h2database:h2:2.2.220'
+    implementation "io.ebean:ebean-mariadb:'3.3.1'"
+    implementation "org.mariadb.jdbc:mariadb-java-client:${mariadbVersion}"
 
     // json
     implementation 'com.google.code.gson:gson:2.10.1'
