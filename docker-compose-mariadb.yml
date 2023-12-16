@@ -1,0 +1,31 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    container_name: "database"
+    tty: true
+    environment:
+      MARIADB_USER: conserjeria
+      MARIADB_PASSWORD: root
+      MARIADB_DATABASE: conserjeria
+      MARIADB_ROOT_PASSWORD: root
+      SERVICE_NAME: mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - private
+
+  javalin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: javalin-app-container
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:7070"
+    environment:
+      JDBC_URL: jdbc:mysql://mariadb:3306/sample-db
+      JDBC_USER: my-user
+      JDBC_PASSWORD: ultra-secret-pwd-for-as
